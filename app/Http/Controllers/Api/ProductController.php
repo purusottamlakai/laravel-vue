@@ -15,7 +15,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        return response()->json(\App\Http\Resources\ProductResource::collection($this->product->get()));
+        return response()->json(\App\Http\Resources\ProductResource::collection($this->product->inRandomOrder(getRandomOrderSeed())->get()));
     }
 
     /**

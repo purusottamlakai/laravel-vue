@@ -20,7 +20,7 @@ abstract class Controller
    /**
     * Returns the current status code.
     *
-    * @return int status code
+    * @return \Illuminate\Http\JsonResponse
     */
     public function getStatusCode()
     {
@@ -32,7 +32,7 @@ abstract class Controller
     *
     * @param array $data
     *
-    * @return Response
+    * @return \Illuminate\Http\JsonResponse
     */
     public function respondWithSuccess($data)
     {
@@ -44,7 +44,7 @@ abstract class Controller
     *
     * @param string $message
     *
-    * @return Response
+    * @return \Illuminate\Http\JsonResponse
     */
    public function respondWithSuccessMessage($message)
    {
@@ -56,7 +56,7 @@ abstract class Controller
     *
     * @param string $message
     *
-    * @return
+    * @return \Illuminate\Http\JsonResponse
     */
    public function respondWithFailureMessage($message)
    {
@@ -71,7 +71,7 @@ abstract class Controller
     *
     * @param string $message
     *
-    * @return mixed
+    * @return \Illuminate\Http\JsonResponse
     */
    public function respondNotFound($message = 'Not Found')
    {
@@ -84,7 +84,7 @@ abstract class Controller
     * @param string $messsage
     * @param mixed  $data
     *
-    * @return mixed
+    * @return \Illuminate\Http\JsonResponse
     */
    public function respondWithError($data)
    {
@@ -94,7 +94,7 @@ abstract class Controller
    /**
     * @param string $message
     *
-    * @return mixed
+    * @return \Illuminate\Http\JsonResponse
     */
    public function respondInternalError($message = 'Internal Error')
    {
@@ -109,7 +109,7 @@ abstract class Controller
     * @param string $message
     * @param mixed  $token
     *
-    * @return json
+    * @return \Illuminate\Http\JsonResponse
     */
    public function respondCreated(array $data)
    {
@@ -121,7 +121,7 @@ abstract class Controller
     *
     * @param string $message
     *
-    * @return json
+    * @return \Illuminate\Http\JsonResponse
     */
    public function respondInvalidParameters($message = 'Invalid Parameters')
    {
@@ -135,7 +135,7 @@ abstract class Controller
     *
     * @param string $message
     *
-    * @return json
+    * @return \Illuminate\Http\JsonResponse
     */
    public function respondNoTag($message = 'No Tag Found')
    {
@@ -154,7 +154,7 @@ abstract class Controller
     * @param array      $params    Optional data
     * @param null|mixed $extraInfo
     *
-    * @return json
+    * @return \Illuminate\Http\JsonResponse
     */
    public function respondWithPagination($data, $paginator, $extraInfo = null, $limit = 10)
    {
@@ -179,7 +179,7 @@ abstract class Controller
     *
     * @param string $message
     *
-    * @return mixed
+    * @return \Illuminate\Http\JsonResponse
     */
    public function respondNoContent()
    {
@@ -191,7 +191,7 @@ abstract class Controller
     *
     * @param string $message
     *
-    * @return mixed
+    * @return \Illuminate\Http\JsonResponse
     */
    public function respondForbidden($message = 'This action is unauthorize')
    {
@@ -205,7 +205,7 @@ abstract class Controller
     *
     * @param string $message
     *
-    * @return mixed
+    * @return \Illuminate\Http\JsonResponse
     */
    public function respondUnathorized($message = 'Authentication Failure')
    {
@@ -220,7 +220,7 @@ abstract class Controller
     * @param mixed $data
     * @param array $headers
     *
-    * @return mixed
+    * @return \Illuminate\Http\JsonResponse
     */
    protected function respond($data, $headers = [])
    {
