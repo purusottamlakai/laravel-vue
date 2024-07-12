@@ -30,11 +30,11 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
         ]);
         if($user->save()){
-            $tokenResult = $user->createToken('Personal Access Token');
+            $tokenResult = $user->createToken('auth_token');
             $token = $tokenResult->plainTextToken;
             return  $this->respondWithSuccess([
-                'message' => 'Successfully created user!',
-                'accessToken'=> $token,
+                'token' =>$token,
+                'user' => $user
             ]);
         } else{
             return $this->respondWithFailureMessage('Provide proper details');
@@ -60,16 +60,27 @@ class AuthController extends Controller
         $credentials = request(['email','password']);
         $rememberMe = request('remember_me');
         if(!Auth::attempt($credentials, $rememberMe)) {
-            return $this->respondUnathorized();
+            return $this->respondUnathorized("email or password doesn't match.");
         }
 
         $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
+        $tokenResult = $user->createToken('auth_token');
         $token = $tokenResult->plainTextToken;
 
         return  $this->respondWithSuccess([
-            'token_type' => 'Bearer',
-            'accessToken' =>$token,
+            'token' =>$token,
+            'user' => $user
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+        return response()->json(['message' => 'Logged out successfully']);
+    }
+
+    public function user(Request $request)
+    {
+        return response()->json($request->user());
     }
 }

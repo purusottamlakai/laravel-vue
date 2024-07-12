@@ -14,8 +14,7 @@ const productCount = ref(0);
 const userCount = ref(0);
 
 onMounted(async () => {
-    
-    axios.get('/api/home-data') 
+  axios.get('/api/home-data') 
     .then(function (response) {
       userCount.value = response.data.user_count;
       productCount.value = response.data.product_count;
@@ -27,6 +26,6 @@ onMounted(async () => {
         icon: 'error',
         confirmButtonText: 'Ok'
       });
-    });
+  });
 });
 </script>
