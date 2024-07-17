@@ -18,11 +18,15 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (Exception $e, Request $request) {
+            $code = $e->getCode() ?: 500;
+            if($e instanceof \Illuminate\Auth\AuthenticationException) {
+                $code = 401;
+            }
             if ($request->expectsJson()) {
                 return response()->json([
                     'success' => false,
                     'message' => $e->getMessage(),
-                ], $e->getCode() ?: 500);
+                ], $code);
             }
 
             return null;

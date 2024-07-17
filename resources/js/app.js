@@ -27,4 +27,15 @@ axios.interceptors.request.use(
   }
 );
 
+axios.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response && error.response.status === 401) {
+      store.dispatch('removeToken');
+      router.push('/login');
+    }
+    return Promise.reject(error);
+  }
+);
+
 app.use(router).use(store).mount('#app');

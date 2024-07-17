@@ -43,6 +43,10 @@ const store = createStore({
       } catch (error) {
         console.error("Error logging out:", error);
       }
+    },
+    removeToken({commit}){
+        localStorage.removeItem('token');
+        commit('SET_AUTH', false);
     }
   }
 });

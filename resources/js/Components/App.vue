@@ -6,7 +6,7 @@
       <router-link v-if="isAuthenticated" to="/home">Home</router-link>
       <router-link v-if="isAuthenticated" to="/users">Users</router-link>
       <router-link v-if="isAuthenticated" to="/products">Products</router-link>
-      <router-link v-if="isAuthenticated" to="/logout" @click.prevent="logout">Logout</router-link>
+      <a  v-if="isAuthenticated" @click.prevent="logout">Logout</a>
     </div>
   </div>
   <div class="content">
