@@ -1,9 +1,8 @@
-<!-- src/Components/Login.vue -->
 <template>
     <div class="flex items-center justify-center min-h-screen bg-gray-100">
       <div class="w-full max-w-sm p-6 bg-white rounded-md shadow-md">
         <h1 class="mb-6 text-2xl font-bold text-center text-gray-700">Login</h1>
-        <form @submit.prevent="login" class="space-y-4">
+        <form @submit.prevent="handleLogin" class="space-y-4">
           <div>
             <input
               v-model="email"
@@ -31,35 +30,33 @@
             </button>
           </div>
         </form>
+        <p v-if="errorMessage" class="pt-4 text-center text-red-500">{{ errorMessage }}</p>
       </div>
     </div>
   </template>
-
-<script>
-import axios from 'axios';
-
-export default {
+  
+  <script>
+  import { mapActions } from 'vuex';
+  
+  export default {
     data() {
-        return {
-            email: '',
-            password: ''
-        };
+      return {
+        email: '',
+        password: '',
+        errorMessage: ''
+      };
     },
     methods: {
-        async login() {
-            try {
-                const response = await axios.post('/api/login', {
-                    email: this.email,
-                    password: this.password
-                });
-                localStorage.setItem('token', response.data.token);
-                const emits = defineEmits(['change_auth']);
-                this.$router.push('/home');
-            } catch (error) {
-                this.$router.push('/login');
-                console.error('Error logging in:', error);
-            }
+      ...mapActions(['login']),
+      async handleLogin() {
+        try {
+          await this.login({ email: this.email, password: this.password });
+          this.$router.push('/home');
+        } catch (error) {
+          this.errorMessage = 'Error logging in. Please try again.';
+          console.error('Error logging in:', error);
         }
+      }
     }
-};
-</script>
+  };
+  </script>  

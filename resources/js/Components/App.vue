@@ -2,7 +2,7 @@
   <div class="navbar">
     <div class="logo">Dashboard</div>
     <div class="links">
-      <router-link v-if="!isAuthenticated" to="/login" :change_auth="checkAuthStatus">Login</router-link>
+      <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
       <router-link v-if="isAuthenticated" to="/home">Home</router-link>
       <router-link v-if="isAuthenticated" to="/users">Users</router-link>
       <router-link v-if="isAuthenticated" to="/products">Products</router-link>
@@ -14,36 +14,20 @@
   </div>
 </template>
 
-
 <script>
-  import axios from 'axios';
+import { mapState, mapActions } from 'vuex';
 
-  export default {
-    data() {
-      return {
-        isAuthenticated: false,
-      };
-    },
-    methods: {
-      async checkAuthStatus() {
-          const token = localStorage.getItem('token');
-          this.isAuthenticated = !!token;
-      },
-      async logout() {
-        try {
-          await axios.post('/api/logout');
-          localStorage.removeItem('token');
-          this.isAuthenticated = false;
-          this.$router.push('/login');
-        } catch (error) {
-          console.error("Error logging out:", error);
-        }
-      },
-    },
-    created() {
-      this.checkAuthStatus();
-    }
-  };
+export default {
+  computed: {
+    ...mapState(['isAuthenticated']),
+  },
+  methods: {
+    ...mapActions(['logout']),
+  },
+  created() {
+    this.$store.dispatch('checkAuthStatus');
+  }
+};
 </script>
 
 <style>

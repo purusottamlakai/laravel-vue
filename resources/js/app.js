@@ -2,6 +2,7 @@ import '../css/app.css';
 import { createApp } from 'vue';
 import App from './Components/App.vue';
 import router from './router/index.js';
+import store from './store/index.js';
 import axios from 'axios';
 
 const app = createApp(App);
@@ -26,4 +27,4 @@ axios.interceptors.request.use(
   }
 );
 
-app.use(router).mount('#app');
+app.use(router).use(store).mount('#app');
