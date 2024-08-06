@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <div class="logo">Dashboard</div>
+    <div class="logo">Laravel</div>
     <div class="links">
       <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
       <router-link v-if="isAuthenticated" to="/home">Home</router-link>
